@@ -1,12 +1,16 @@
-from util import *
-from config import u, N
+import numpy as np
+
+import config as cfg
+from util import gen_multiple_polynomials, poly_add
 
 
 def Setup():
-    G = gen_multiple_polynomials(N)
-
-    def E(x):
-        X = np.array([[x**i for i in range(0, N)]])
-        return poly_add(u, (X @ G).T).flatten()
-
-    return np.array([E(i) for i in range(1, N+1)])
+    """Evaluate ONE degree-(N-1) Shamir polynomial with E(0) = u."""
+    G = gen_multiple_polynomials(cfg.N - 1)
+    shares = []
+    for theta in range(1, cfg.N + 1):
+        value = cfg.u.copy()
+        for degree, coefficient in enumerate(G, 1):
+            value = poly_add(value, theta**degree * coefficient)
+        shares.append(value)
+    return np.array(shares, dtype=object)

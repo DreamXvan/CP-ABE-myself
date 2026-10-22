@@ -2,4 +2,8 @@ __pycache__
 提示词.md
 venv
 .idea
+tmp
+docs
+examples
+tests
 An_Efficient_and_Secure_Post-Quantum_Multi-Authority_Ciphertext-Policy_Attribute-Based_Encryption_Method_Using_Lattice.pdf
